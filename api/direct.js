@@ -25,17 +25,10 @@ export default async function handler(req, res) {
       "Olá, somos a equipe do Health App e queremos ajudá-lo a alcançar os primeiros 10.000 seguidores no Instagram. Para isso, preparamos um ebook gratuito com dicas e estratégias para você"
     );
 
-    const pdfPath = path.resolve("./public", "ebook.pdf");
-
-    if (!fs.existsSync(pdfPath)) {
-      throw new Error("PDF file not found.");
-    }
-
-    const pdfBuffer = fs.readFileSync(pdfPath);
-    await thread.broadcastAttachment({
-      file: pdfBuffer,
-      filename: "ebook.pdf",
-    });
+    await thread.broadcastLink(
+      "Baixe o ebook agora",
+      "https://www.orimi.com/pdf-test.pdf"
+    );
 
     return res.status(200).json({ message: `PDF enviado para ${username}.` });
   } catch (error) {
