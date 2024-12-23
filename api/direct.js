@@ -31,8 +31,9 @@ export default async function handler(req, res) {
       throw new Error("PDF file not found.");
     }
 
-    await ig.entity.directThread([userId]).broadcastFile({
-      file: fs.readFileSync(pdfPath),
+    const pdfBuffer = fs.readFileSync(pdfPath);
+    await thread.broadcastAttachment({
+      file: pdfBuffer,
       filename: "ebook.pdf",
     });
 
