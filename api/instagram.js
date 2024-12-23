@@ -1,15 +1,17 @@
-import 'dotenv/config';
-import { IgApiClient } from 'instagram-private-api';
+import "dotenv/config";
+import { IgApiClient } from "instagram-private-api";
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { username } = req.query;
 
   if (!username) {
-    return res.status(400).json({ error: 'Username query parameter is required' });
+    return res
+      .status(400)
+      .json({ error: "Username query parameter is required" });
   }
 
   const ig = new IgApiClient();
@@ -21,7 +23,13 @@ export default async function handler(req, res) {
       ig.state.proxyUrl = process.env.IG_PROXY;
     }
 
-    const auth = await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
+    console.log("IG_USERNAME:", process.env.IG_USERNAME);
+    //console.log("IG_PASSWORD:", process.env.IG_PASSWORD);
+
+    const auth = await ig.account.login(
+      process.env.IG_USERNAME,
+      process.env.IG_PASSWORD
+    );
     console.log(`Logado como: ${auth.username}`);
 
     const userId = await ig.user.getIdByUsername(username);
@@ -31,7 +39,7 @@ export default async function handler(req, res) {
 
     const userInfo = await ig.user.info(userId);
     if (!userInfo) {
-      return res.status(500).json({ error: 'Failed to retrieve user info.' });
+      return res.status(500).json({ error: "Failed to retrieve user info." });
     }
 
     const followersCount = userInfo.follower_count || 0;
@@ -42,9 +50,9 @@ export default async function handler(req, res) {
       followers: followersCount,
     });
   } catch (error) {
-    console.error('Erro ao consultar perfil:', error.message);
+    console.error("Erro ao consultar perfil:", error.message);
     return res.status(500).json({
-      error: 'Failed to fetch user info',
+      error: "Failed to fetch user info",
       details: error.message,
     });
   }
