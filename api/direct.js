@@ -22,11 +22,11 @@ export default async function handler(req, res) {
     const userId = await ig.user.getIdByUsername(username);
     const thread = ig.entity.directThread([userId.toString()]);
     await thread.broadcastText(
-      "Olá, somos a equipe do Health App e queremos ajudá-lo a alcançar os primeiros 10.000 seguidores no Instagram. Para isso, preparamos um ebook gratuito com dicas e estratégias para você"
+      "Olá, somos a equipe do Health App e queremos ajudá-lo a alcançar os primeiros 10.000 seguidores no Instagram. Para isso, preparamos um ebook gratuito com dicas e estratégias para você. Clique no link abaixo para baixar o PDF:"
     );
 
     await thread.broadcastLink(
-      "Baixe o ebook agora",
+      "www.orimi.com/pdf-test.pdf",
       "https://www.orimi.com/pdf-test.pdf"
     );
 
