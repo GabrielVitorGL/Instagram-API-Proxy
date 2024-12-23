@@ -1,6 +1,4 @@
 import { IgApiClient } from "instagram-private-api";
-import fs from "fs";
-import path from "path";
 
 const ig = new IgApiClient();
 
