@@ -51,6 +51,11 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Erro ao consultar perfil:", error.message);
+
+    if (error.message.includes("username not found")) {
+      return res.status(404).json({ error: `User "${username}" not found.` });
+    }
+
     return res.status(500).json({
       error: "Failed to fetch user info",
       details: error.message,
