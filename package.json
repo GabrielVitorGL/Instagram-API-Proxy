@@ -1,0 +1,8 @@
+{
+  "name": "instagram-proxy",
+  "version": "1.0.0",
+  "main": "api/instagram.js",
+  "dependencies": {
+    "node-fetch": "^3.3.1"
+  }
+}
